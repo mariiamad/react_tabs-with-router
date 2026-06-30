@@ -21,7 +21,7 @@ export const App: React.FC = () => {
         data-cy="Nav"
       >
         <div className="container">
-          <div className="navbar-brand {getLinkClass}">
+          <div className="navbar-brand">
             <Link
               to="/"
               className={classNames('navbar-item', {
