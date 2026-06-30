@@ -1,7 +1,7 @@
 import 'bulma/css/bulma.css';
 import '@fortawesome/fontawesome-free/css/all.css';
 import './App.scss';
-import { Navigate, Route, Routes, NavLink } from 'react-router-dom';
+import { Navigate, Route, Routes, Link, useLocation } from 'react-router-dom';
 import { TabsPage } from './components/TabsPage';
 import classNames from 'classnames';
 
@@ -11,12 +11,9 @@ const tabs = [
   { id: 'tab-3', title: 'Tab 3', content: 'Some text 3' },
 ];
 
-const getLinkClass = ({ isActive }: { isActive: boolean }) =>
-  classNames('navbar-item', {
-    'is-active': isActive,
-  });
-
 export const App: React.FC = () => {
+  const { pathname } = useLocation();
+
   return (
     <>
       <nav
@@ -24,13 +21,23 @@ export const App: React.FC = () => {
         data-cy="Nav"
       >
         <div className="container">
-          <div className="navbar-brand">
-            <NavLink to="/" className={getLinkClass}>
+          <div className="navbar-brand {getLinkClass}">
+            <Link
+              to="/"
+              className={classNames('navbar-item', {
+                'is-active': pathname === '/',
+              })}
+            >
               Home
-            </NavLink>
-            <NavLink to="/tabs" className={getLinkClass}>
+            </Link>
+            <Link
+              to="/tabs"
+              className={classNames('navbar-item', {
+                'is-active': pathname.startsWith('/tabs'),
+              })}
+            >
               Tabs
-            </NavLink>
+            </Link>
           </div>
         </div>
       </nav>
